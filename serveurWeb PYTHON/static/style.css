@@ -1,0 +1,138 @@
+body {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    position: relative; /* Ajouté pour le positionnement absolu des enfants */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mode-buttons {
+    display: flex; /* Pour aligner les boutons de mode côte à côte */
+    gap: 10px; /* Espacement entre les boutons */
+}
+
+.comic-button {
+    display: inline-block;
+    padding: 5px 10px; /* Réduction de la taille du padding */
+    font-size: 16px; /* Réduction de la taille de la police */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #0056b3;
+    border: 2px solid #000;
+    border-radius: 5px; /* Rayon de bordure réduit */
+    box-shadow: 5px 5px 0px #000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 5px; /* Ajout d'une marge autour des boutons */
+}
+
+.comic-button:hover {
+    background-color: #fff;
+    color: #0056b3;
+    border: 2px solid #0056b3;
+    box-shadow: 5px 5px 0px #0056b3;
+}
+
+.comic-button:active {
+    background-color: aqua;
+    box-shadow: none;
+    transform: translateY(4px);
+}
+
+h1 {
+    color: #0056b3;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+
+/* level settings 👇 */
+
+.slider {
+    /* slider */
+    --slider-width: 100%;
+    --slider-height: 6px;
+    --slider-bg: rgb(82, 82, 82);
+    --slider-border-radius: 999px;
+    /* level */
+    --level-color: #fff;
+    --level-transition-duration: .1s;
+    /* icon */
+    --icon-margin: 15px;
+    --icon-color: var(--slider-bg);
+    --icon-size: 25px;
+  }
+  
+  .slider {
+    cursor: pointer;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.slider .volume {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: var(--icon-margin);
+    color: var(--icon-color);
+    width: var(--icon-size);
+    height: auto;
+}
+
+.slider .level {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: var(--slider-width);
+    height: var(--slider-height);
+    background: var(--slider-bg);
+    overflow: hidden;
+    border-radius: var(--slider-border-radius);
+    -webkit-transition: height var(--level-transition-duration);
+    -o-transition: height var(--level-transition-duration);
+    transition: height var(--level-transition-duration);
+    cursor: inherit;
+}
+
+.slider .level::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
+    -webkit-box-shadow: -200px 0 0 200px var(--level-color);
+    box-shadow: -200px 0 0 200px var(--level-color);
+}
+
+.slider:hover .level {
+    height: calc(var(--slider-height) * 2);
+}
+#naoInfo, #currentVolume {
+    background-color: #e7e7e7;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+p {
+    margin: 10px 0;
+}
