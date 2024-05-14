@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <title>Info NAO</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Manipulation Nao</h1>
+        <button class="comic-button" >Désactiver le mode autonome</button>
+        <button class="comic-button" >Réveiller le robot</button>
+        <button class="comic-button" >Mettre debout le robot</button>
+
+    </header>
+    
+    <p id="naoInfo">{{ info }}</p>
+    <button class="comic-button" >Bienvenue UDM NAO</button>
+
+    <p id="currentVolume">Volume actuel : <span id="volumeValue">?</span>%</p>
+    <label class="slider">
+        <input type="range" class="level">
+        <svg class="volume" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+            <g>
+                <path d="M18.36 19.36a1 1 0 0 1-.705-1.71C19.167 16.148 20 14.142 20 12s-.833-4.148-2.345-5.65a1 1 0 1 1 1.41-1.419C20.958 6.812 22 9.322 22 12s-1.042 5.188-2.935 7.069a.997.997 0 0 1-.705.291z" fill="currentColor" data-original="#000000"></path>
+                <path d="M15.53 16.53a.999.999 0 0 1-.703-1.711C15.572 14.082 16 13.054 16 12s-.428-2.082-1.173-2.819a1 1 0 1 1 1.406-1.422A6 6 0 0 1 18 12a6 6 0 0 1-1.767 4.241.996.996 0 0 1-.703.289zM12 22a1 1 0 0 1-.707-.293L6.586 17H4c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h2.586l4.707-4.707A.998.998 0 0 1 13 3v18a1 1 0 0 1-1 1z" fill="currentColor" data-original="#000000"></path>
+            </g>
+        </svg>
+    </label>
+    <br /><br>
+<button class="comic-button" >Obtenir le volume</button>
+<button class="comic-button" >Régler le volume</button>
+
+
+
+    <script>
+    $(document).ready(function(){
+        $("#startBehavior").click(function(){
+            $.ajax({
+                url: "/", 
+                type: "POST",
+                data: JSON.stringify({ behavior: "bienvenuenaoudm-cf9638/behavior_1" }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response){
+                    alert("Comportement lancé: " + response.message);
+                },
+                error: function(error){
+                    alert("Erreur lors du lancement du comportement: " + error.responseText);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+    $("#getVolume").click(function() {
+        $.ajax({
+            url: "/",
+            type: "POST",
+            data: JSON.stringify({ action: "get_volume" }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                $("#volumeValue").text(response.volume);
+            },
+            error: function(error) {
+                console.error("Erreur lors de la récupération du volume: ", error);
+            }
+        });
+    });
+
+    $("#setVolume").click(function() {
+        var newVolume = $("#volumeInput").val();
+        $.ajax({
+            url: "/",
+            type: "POST",
+            data: JSON.stringify({ action: "set_volume", volume: parseInt(newVolume, 10) }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                alert("Volume mis à jour: " + response.message);
+                $("#getVolume").click(); // Actualiser l'affichage du volume
+            },
+            error: function(error) {
+                console.error("Erreur lors du réglage du volume: ", error);
+            }
+        });
+    });
+});
+
+$(document).ready(function(){
+    // ...
+
+    function changeRobotMode(mode) {
+        $.ajax({
+            url: "/change-mode",
+            type: "POST",
+            data: JSON.stringify({ mode: mode }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response){
+                alert(response.message);
+            },
+            error: function(error){
+                alert("Erreur: " + error.responseText);
+            }
+        });
+    }
+
+    $("#disableAutonomousLife").click(function(){
+        changeRobotMode('disable');
+    });
+
+    $("#wakeUpRobot").click(function(){
+        changeRobotMode('wake_up');
+    });
+
+    $("#standUpRobot").click(function(){
+        changeRobotMode('stand_up');
+    });
+
+    // ...
+});
+    </script>
+</body>
+</html>
