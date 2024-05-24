@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    position: relative;
+}
+
+.input {
+    margin-top: 1rem;
+    border-radius: 10px;
+    outline: 2px solid #00a6fb;
+    border: 0;
+    font-family: "Montserrat", sans-serif;
+    background-color: #d6f1ff;
+    outline-offset: 3px;
+    padding: 10px 12.5px;
+    transition: all 0.2s ease;
+    width: 250px;
+  }
+  
+  .input:hover {
+    background-color: #fff;
+  }
+  
+  .input:focus {
+    outline-offset: -6px;
+    background-color: #d6f1ff;
+  }
+  
+  .input-large {
+    width: 750px; 
+    height: 250px;
+}
+
+.mode-buttons {
+    display: flex; /* Pour aligner les boutons de mode côte à côte */
+    gap: 10px; /* Espacement entre les boutons */
+}
+
+.comic-button {
+    display: inline-block;
+    padding: 5px 10px; /* Réduction de la taille du padding */
+    font-size: 16px; /* Réduction de la taille de la police */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #0056b3;
+    border: 2px solid #000;
+    border-radius: 5px; /* Rayon de bordure réduit */
+    box-shadow: 5px 5px 0px #000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 5px; /* Ajout d'une marge autour des boutons */
+}
+
+.comic-button:hover {
+    background-color: #fff;
+    color: #0056b3;
+    border: 2px solid #0056b3;
+    box-shadow: 5px 5px 0px #0056b3;
+}
+
+.comic-button:active {
+    background-color: aqua;
+    box-shadow: none;
+    transform: translateY(4px);
+}

@@ -60,18 +60,14 @@ h1 {
 
 
 
-/* level settings 👇 */
 
 .slider {
-    /* slider */
     --slider-width: 100%;
     --slider-height: 6px;
     --slider-bg: rgb(82, 82, 82);
     --slider-border-radius: 999px;
-    /* level */
     --level-color: #fff;
     --level-transition-duration: .1s;
-    /* icon */
     --icon-margin: 15px;
     --icon-color: var(--slider-bg);
     --icon-size: 25px;
@@ -135,4 +131,60 @@ h1 {
 
 p {
     margin: 10px 0;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center; 
+    width: 100%;
+}
+
+#behaviorButtons {
+    margin: 0 auto; 
+    max-width: 90%; 
+}
+
+
+#directional-controls {
+    display: grid;
+    grid-template-areas:
+      " . up . "
+      "left . right"
+        " . down . ";
+    justify-content: center;
+    align-items: center;
+    gap: 8px; 
+    margin: 20px 0; 
+}
+
+.direction-btn {
+
+}
+
+#move-up {
+    grid-area: up;
+    justify-self: center; 
+}
+
+#move-left {
+    grid-area: left;
+    justify-self: center; 
+}
+
+#move-down {
+    grid-area: down;
+    justify-self: center; 
+}
+
+#move-right {
+    grid-area: right;
+    justify-self: center; 
+}
+
+#theta-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0;
 }

@@ -1,0 +1,67 @@
+body {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    position: relative;
+    line-height: 1.6;
+    min-height: 100vh;
+
+}
+
+.header {
+    text-align: center; /* Centrer le texte du header */
+    margin-bottom: 30px; /* Espace entre le texte et les boutons */
+}
+
+.choix-boutons { /* Nom de classe corrigé pour correspondre à l'HTML */
+    display: flex;
+    justify-content: center; /* Centrer les boutons horizontalement */
+    align-items: center; /* Centrer les boutons verticalement */
+    flex-direction: row; /* Organiser les boutons horizontalement */
+    gap: 10px;
+    position: absolute; /* Position absolue pour permettre le centrage */
+    top: 50%; /* Alignement vertical au centre */
+    left: 50%; /* Alignement horizontal au centre */
+    transform: translate(-50%, -50%); /* Décalage pour un centrage précis */
+}
+
+.comic-button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #0056b3;
+    border: 2px solid #000;
+    border-radius: 5px;
+    box-shadow: 5px 5px 0px #000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.comic-button:hover {
+    background-color: #fff;
+    color: #0056b3;
+    border: 2px solid #0056b3;
+    box-shadow: 5px 5px 0px #0056b3;
+}
+
+.comic-button:active {
+    background-color: aqua;
+    box-shadow: none;
+    transform: translateY(4px);
+}
+
+h1 {
+    color: #0056b3;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
