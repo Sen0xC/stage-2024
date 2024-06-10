@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
-        "httpauth"
+        "httpauth",
+        "sqlalchemy"
     ],
     "files.exclude": {
         "**/.pyc": true

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from flask import request, jsonify, render_template
 from . import app
-from .utils import create_session_pepper, create_session_nao, get_nao_info, disable_autonomous_life, get_pepper_info, wake_up_robot, stand_up_robot, requires_auth    
+from .utils import create_session, create_session_pepper, create_session_nao, get_nao_info, disable_autonomous_life, get_pepper_info, wake_up_robot, stand_up_robot, requires_auth    
+from models import Presentation, Content
 
 @app.route('/')
 @requires_auth
@@ -12,7 +13,7 @@ def home():
 def manip_nao():
     session = create_session_nao()
     if session is None:
-        nao_info = u"Robot non connecté ou indisponible."
+        nao_info = "Robot non connecté ou indisponible."
     else:
         nao_info = get_nao_info(session)
 
@@ -31,7 +32,7 @@ def manip_nao():
                 return jsonify(message="Le volume doit être un entier entre 0 et 100."), 400
             audio_device = session.service("ALAudioDevice")
             audio_device.setOutputVolume(new_volume)
-            return jsonify(message="Volume mis à jour.")
+            return jsonify(message="Volume mis à jour.") 
         
         elif action == 'start_behavior':
             behavior_name = data.get('behavior')
@@ -52,7 +53,6 @@ def manip_nao():
             stand_up_robot(session)
             return jsonify(message="Robot en posture debout."), 200
 
-    # Pour les requêtes GET, renvoyer la page manipNao.html avec les informations de NAO
     return render_template('manipNao.html', info=nao_info)
 
 @app.route('/get-behaviors')
@@ -130,9 +130,41 @@ def manip_pepper():
 
     return render_template('manipPepper.html', info=pepper_info)
 
-@app.route('/ajoutInfoPepper')
-@requires_auth
-def ajout_info_pepper():
-    return render_template('ajoutInfoPepper.html')
+@app.route('/ajoutInfoPepper', methods=['POST'])
+def submit_content():
+    session = create_session() # créer une session de base de données
+    if request.method == 'POST':
+        content_data = request.json
+        presentation_name = None
+        for content_item in content_data:
+            if content_item['type'] == 'titre':
+                presentation_name = content_item['value']
+                # Suppression de l'élément de la liste pour que le nom ne soit pas ajouté au contenu de la présentation
+                content_data.remove(content_item)
+                break
 
+        if not presentation_name:
+            return jsonify({'error': 'Nom de présentation non spécifié'}), 400
 
+        # Vérifier si la présentation existe déjà
+        existing_presentation = session.query(Presentation).filter_by(name=presentation_name).first() # utiliser la session de base de données
+
+        # Si la présentation n'existe pas, la créer
+        if not existing_presentation:
+            new_presentation = Presentation(name=presentation_name)
+            session.add(new_presentation)
+            session.commit()
+            existing_presentation = new_presentation
+
+        # Ajouter le contenu à la présentation
+        for content_item in content_data:
+            new_content = Content(type=content_item['type'], value=content_item['value'], presentation_id=existing_presentation.id)
+            session.add(new_content)
+            session.commit()
+
+        session.close()
+        return jsonify({'message': 'Données enregistrées avec succès'}), 200
+        
+
+    else:
+        return jsonify({'error': 'Méthode non autorisée'}), 405

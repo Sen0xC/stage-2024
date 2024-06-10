@@ -2,7 +2,24 @@
 from flask import Flask, request, Response, render_template, jsonify
 from functools import wraps
 import qi
+import sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
 import sys
+
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+def init_db(app):
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
+
+def create_session():
+    return db.session
+
 
 reload(sys)
 sys.setdefaultencoding('utf-8')

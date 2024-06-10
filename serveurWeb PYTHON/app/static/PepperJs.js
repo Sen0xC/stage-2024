@@ -340,6 +340,43 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $("#site").click(function() {
+        $.ajax({
+            url: "/manipPepper",
+            type: "POST",
+            data: JSON.stringify({ action: "start_behavior", behavior: "site/behavior_1" }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                console.log("Comportement lancé: " + response.message);
+            },
+            error: function(error) {
+                alert("Erreur lors du lancement du comportement: " + error.responseText);
+            }
+        });
+    });
+});
+$(document).ready(function() {
+    $("#hide").click(function() {
+        $.ajax({
+            url: "/manipPepper",
+            type: "POST",
+            data: JSON.stringify({ action: "start_behavior", behavior: "hide/behavior_1" }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                console.log("Comportement lancé: " + response.message);
+            },
+            error: function(error) {
+                alert("Erreur lors du lancement du comportement: " + error.responseText);
+            }
+        });
+    });
+});
+
+
+
 function redirectToAjoutInfoPepper() {
     window.location.href = "/ajoutInfoPepper";
 }

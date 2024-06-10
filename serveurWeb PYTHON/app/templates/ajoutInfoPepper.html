@@ -10,17 +10,17 @@
 <body>
     <h1>Ajout d'information pour Pepper</h1>
 
-    <form>
+    <form action="/ajoutInfoPepper" method="post">
         <div class="titre">
             <p>Ajouter un titre au bouton</p>
-            <input class="input" id="buttonTitle" placeholder="titre" type="text">
+            <input class="input" id="buttonTitle" placeholder="titre" type="text" name="titre">
         </div>
-
+    
         <div>
             <p>Ajouter un texte</p>
-            <textarea class="input input-large" id="buttonText" placeholder="texte" type="text"></textarea>
+            <textarea class="input input-large" id="buttonText" placeholder="texte" type="text" name="texte"></textarea>
         </div>
-
+    
         <button type="submit" id="submitButton">Envoyer</button>
     </form>
 
